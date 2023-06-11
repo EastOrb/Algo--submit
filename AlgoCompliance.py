@@ -1,55 +1,87 @@
-# Copyright Brian Haney and Samuel Tosin 2022
-# Apache License
-# Automated Compliance on Algorand
-from tkinter import *
-from tkinter.messagebox import *
-natural_language_compression = {'good':0.75, 'acceptable':0.5, 'outstanding': 1, 'unacceptable': 0, 'marginal': .25}
-master = Tk()
-label0 = Label(master, text = 'Equity', relief = 'groove', width = 12)
-label1 = Label(master, text = 'Decentralization', relief = 'groove', width = 12)
-label2 = Label(master, text = 'Participation', relief = 'groove', width = 12)
-label3 = Label(master, text = 'Investment', relief = 'groove', width = 12)
-label4 = Label(master, text = 'Utility', relief = 'groove', width = 12)
-label5 = Label(master, text = 'Purpose', relief = 'groove', width = 12)
-label6 = Label(master, text = 'Control', relief = 'groove', width = 12)
-label7 = Label(master, text = 'Derivatives', relief = 'groove', width = 12)
-label8 = Label(master, text = 'Open Source', relief = 'groove', width = 12)
-label9 = Label(master, text = 'Compliance Score', relief = 'groove', width = 20)
-entry0 = Entry(master, relief = 'groove', width = 12)
-entry1 = Entry(master, relief = 'groove', width = 12)
-entry2 = Entry(master, relief = 'groove', width = 12)
-entry3 = Entry(master, relief = 'groove', width = 12)
-entry4 = Entry(master, relief = 'groove', width = 12)
-entry5 = Entry(master, relief = 'groove', width = 12)
-entry6 = Entry(master, relief = 'groove', width = 12)
-entry7 = Entry(master, relief = 'groove', width = 12)
-entry8 = Entry(master, relief = 'groove', width = 12)
-blank0 = Entry(master, relief = 'groove', width = 20)
-def compliance_ai():
-    intuition = 1/9
-    knowledge = float(natural_language_compression[entry0.get()]) * float(natural_language_compression[entry1.get()]) * float(natural_language_compression[entry2.get()]) *float(natural_language_compression[entry3.get()]) * float(natural_language_compression[entry4.get()]) * float(natural_language_compression[entry5.get()]) * float(natural_language_compression[entry6.get()]) * float(natural_language_compression[entry7.get()]) * float(natural_language_compression[entry8.get()])
-    intelligence = float(knowledge) ** intuition
-    blank0.insert(0, intelligence)
-button0 = Button(master, text = 'Calculate ASA Compliance', relief = 'groove', width = 25, command =compliance_ai)
-label0.grid( row = 1, column = 1, padx = 10 )
-label1.grid( row = 2, column = 1, padx = 10 )
-label2.grid( row = 3, column = 1, padx = 10 )
-label3.grid( row = 4, column = 1, padx = 10 )
-label4.grid( row = 5, column = 1, padx = 10 )
-label5.grid( row = 6, column = 1, padx = 10 )
-label6.grid( row = 7, column = 1, padx = 10 )
-label7.grid( row = 8, column = 1, padx = 10 )
-label8.grid( row = 9, column = 1, padx = 10 )
-label9.grid( row = 2, column = 3, padx = 10 )
-entry0.grid( row = 1, column = 2, padx = 10 )
-entry1.grid( row = 2, column = 2, padx = 10 )
-entry2.grid( row = 3, column = 2, padx = 10 )
-entry3.grid( row = 4, column = 2, padx = 10 )
-entry4.grid( row = 5, column = 2, padx = 10 )
-entry5.grid( row = 6, column = 2, padx = 10 )
-entry6.grid( row = 7, column = 2, padx = 10 )
-entry7.grid( row = 8, column = 2, padx = 10 )
-entry8.grid( row = 9, column = 2, padx = 10 )
-blank0.grid( row = 3, column = 3, padx = 10 )
-button0.grid( row = 4, column = 3, columnspan = 2)
-master.title('Automated Compliance on Algorand')
+from tkinter import Tk, Label, Entry, Button
+from tkinter.messagebox import showinfo
+
+class ComplianceCalculator:
+    def __init__(self, master):
+        self.master = master
+        self.create_widgets()
+
+    def create_widgets(self):
+        self.label0 = Label(self.master, text='Equity', relief='groove', width=12)
+        self.label1 = Label(self.master, text='Decentralization', relief='groove', width=12)
+        self.label2 = Label(self.master, text='Participation', relief='groove', width=12)
+        self.label3 = Label(self.master, text='Investment', relief='groove', width=12)
+        self.label4 = Label(self.master, text='Utility', relief='groove', width=12)
+        self.label5 = Label(self.master, text='Purpose', relief='groove', width=12)
+        self.label6 = Label(self.master, text='Control', relief='groove', width=12)
+        self.label7 = Label(self.master, text='Derivatives', relief='groove', width=12)
+        self.label8 = Label(self.master, text='Open Source', relief='groove', width=12)
+        self.label9 = Label(self.master, text='Compliance Score', relief='groove', width=20)
+
+        self.entry0 = Entry(self.master, relief='groove', width=12)
+        self.entry1 = Entry(self.master, relief='groove', width=12)
+        self.entry2 = Entry(self.master, relief='groove', width=12)
+        self.entry3 = Entry(self.master, relief='groove', width=12)
+        self.entry4 = Entry(self.master, relief='groove', width=12)
+        self.entry5 = Entry(self.master, relief='groove', width=12)
+        self.entry6 = Entry(self.master, relief='groove', width=12)
+        self.entry7 = Entry(self.master, relief='groove', width=12)
+        self.entry8 = Entry(self.master, relief='groove', width=12)
+        self.blank0 = Entry(self.master, relief='groove', width=20)
+
+        self.button0 = Button(self.master, text='Calculate ASA Compliance', relief='groove', width=25, command=self.calculate_compliance_score)
+
+        self.label0.grid(row=1, column=1, padx=10)
+        self.label1.grid(row=2, column=1, padx=10)
+        self.label2.grid(row=3, column=1, padx=10)
+        self.label3.grid(row=4, column=1, padx=10)
+        self.label4.grid(row=5, column=1, padx=10)
+        self.label5.grid(row=6, column=1, padx=10)
+        self.label6.grid(row=7, column=1, padx=10)
+        self.label7.grid(row=8, column=1, padx=10)
+        self.label8.grid(row=9, column=1, padx=10)
+        self.label9.grid(row=2, column=3, padx=10)
+
+        self.entry0.grid(row=1, column=2, padx=10)
+        self.entry1.grid(row=2, column=2, padx=10)
+        self.entry2.grid(row=3, column=2, padx=10)
+        self.entry3.grid(row=4, column=2, padx=10)
+        self.entry4.grid(row=5, column=2, padx=10)
+        self.entry5.grid(row=6, column=2, padx=10)
+        self.entry6.grid(row=7, column=2, padx=10)
+        self.entry7.grid(row=8, column=2, padx=10)
+        self.entry8.grid(row=9, column=2, padx=10)
+        self.blank0.grid(row=3, column=3, padx=10)
+        self.button0.grid(row=4, column=3, columnspan=2)
+
+    def calculate_compliance_score(self):
+        knowledge_values = [
+            self.entry0.get(),
+            self.entry1.get(),
+            self.entry2.get(),
+            self.entry3.get(),
+            self.entry4.get(),
+            self.entry5.get(),
+            self.entry6.get(),
+            self.entry7.get(),
+            self.entry8.get()
+        ]
+
+        try:
+            knowledge = 1.0
+            for value in knowledge_values:
+                knowledge *= float(natural_language_compression.get(value, 0))
+
+            intuition = 1 / 9
+            intelligence = knowledge ** intuition
+            self.blank0.delete(0, 'end')
+            self.blank0.insert(0, intelligence)
+        except ValueError:
+            showinfo('Error', 'Invalid input. Please enter numeric values.')
+
+if __name__ == '__main__':
+    master = Tk()
+    master.title('Automated Compliance on Algorand')
+    calculator = ComplianceCalculator(master)
+    master.mainloop()
+
